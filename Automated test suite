@@ -1,3 +1,4 @@
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,257 +8,281 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class UserRegistrationandLogin {
-    private WebDriver driver;
+	private WebDriver driver;
 
-    @BeforeClass
-    public void BrowsersetUp() {
-        // Set up the WebDriver instance
-        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("your_app_url");
-    }
+	@BeforeClass
+	public void BrowsersetUp() {
+		// Set up the WebDriver instance
+		System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("your_app_url");
+	}
 
-    //REGISTRATION
-@test(priority=1)
-    public String UserRegistration() throws InterruptedException {
-        // Test user registration with valid information
-        driver.findElement(By.id("register-link")).click();
-        driver.findElement(By.id("username")).sendKeys("testuser");
-        driver.findElement(By.id("password")).sendKeys("testpassword");
-        driver.findElement(By.id("email")).sendKeys("testuser@example.com");
-        driver.findElement(By.id("register-button")).click();
-        // Verify successful registration message
-        String successMessage = driver.findElement(By.id("success-message")).getText();
-        Assert.assertEquals(successMessage, "Registration successful. Please log in.");
-    }
-	 //LOGIN
-@test(priority=2)
-    public void UserLogin() throws InterruptedException {
-        // Test user login with valid credentials
-        driver.findElement(By.id("login-link")).click();
-        driver.findElement(By.id("username")).sendKeys("testuser");
-        driver.findElement(By.id("password")).sendKeys("testpassword");
-        driver.findElement(By.id("login-button")).click();
+	//REGISTRATION
+	@test(priority=1)
+	public String UserRegistration() throws InterruptedException {
+		// Test user registration with valid information
+		driver.findElement(By.id("register-link")).click();
+		driver.findElement(By.id("username")).sendKeys("testuser");
+		driver.findElement(By.id("password")).sendKeys("testpassword");
+		driver.findElement(By.id("email")).sendKeys("testuser@example.com");
+		driver.findElement(By.id("register-button")).click();
+		// Verify successful registration message
+		String successMessage = driver.findElement(By.id("success-message")).getText();
+		Assert.assertEquals(successMessage, "Registration successful. Please log in.");
+	}
+	//LOGIN
+	@test(priority=2)
+	public void UserLogin() throws InterruptedException {
+		// Test user login with valid credentials
+		driver.findElement(By.id("login-link")).click();
+		driver.findElement(By.id("username")).sendKeys("testuser");
+		driver.findElement(By.id("password")).sendKeys("testpassword");
+		driver.findElement(By.id("login-button")).click();
 
-        // Verify successful login by checking the presence of a welcome message
-        String welcomeMessage = driver.findElement(By.id("welcome-message")).getText();
-        Assert.assertTrue(welcomeMessage.contains("Welcome, testuser!"));
-    }
-//NEGATIVE TC FOR INVALID LOGIN ATTEMPT
-@test(priority=3)
-    public void InvalidLoginAttempt() {
-        // Test invalid login attempt with wrong credentials
-        driver.findElement(By.id("login-link")).click();
-        driver.findElement(By.id("username")).sendKeys("testuser");
-        driver.findElement(By.id("password")).sendKeys("wrongpassword");
-        driver.findElement(By.id("login-button")).click();
+		// Verify successful login by checking the presence of a welcome message
+		String welcomeMessage = driver.findElement(By.id("welcome-message")).getText();
+		Assert.assertTrue(welcomeMessage.contains("Welcome, testuser!"));
+	}
+	//NEGATIVE TC FOR INVALID LOGIN ATTEMPT
+	@test(priority=3)
+	public void InvalidLoginAttempt() {
+		// Test invalid login attempt with wrong credentials
+		driver.findElement(By.id("login-link")).click();
+		driver.findElement(By.id("username")).sendKeys("testuser");
+		driver.findElement(By.id("password")).sendKeys("wrongpassword");
+		driver.findElement(By.id("login-button")).click();
 
-        // Verify appropriate error message for invalid login attempt
-        String errorMessage = driver.findElement(By.id("error-message")).getText();
-        Assert.assertEquals(errorMessage, "Invalid username or password. Please try again.");
-    }
-@Test(priority = 4)
-    public void LogWorkout() {
- // Navigate to the log workout page
-        driver.findElement(By.linkText("Log Workout")).click();
+		// Verify appropriate error message for invalid login attempt
+		String errorMessage = driver.findElement(By.id("error-message")).getText();
+		Assert.assertEquals(errorMessage, "Invalid username or password. Please try again.");
+	}
+	@Test(priority = 4)
+	public void LogWorkout() {
+		// Navigate to the log workout page
+		driver.findElement(By.linkText("Log Workout")).click();
 
-        // Enter exercise, sets, and reps
-        driver.findElement(By.id("exercise")).sendKeys("Bench Press");
-        driver.findElement(By.id("sets")).sendKeys("3");
-        driver.findElement(By.id("reps")).sendKeys("10");
-// Submit the log workout form
-        driver.findElement(By.id("logWorkoutButton")).click();
+		// Enter exercise, sets, and reps
+		driver.findElement(By.id("exercise")).sendKeys("Bench Press");
+		driver.findElement(By.id("sets")).sendKeys("3");
+		driver.findElement(By.id("reps")).sendKeys("10");
+		// Submit the log workout form
+		driver.findElement(By.id("logWorkoutButton")).click();
 
-        // Verify the workout is saved correctly and associated with the user
-        String loggedExercise = driver.findElement(By.id("loggedExercise")).getText();
-        String loggedSets = driver.findElement(By.id("loggedSets")).getText();
-        String loggedReps = driver.findElement(By.id("loggedReps")).getText();
-        
-        Assert.assertEquals(loggedExercise, "Bench Press");
-        Assert.assertEquals(loggedSets, "3");
-        Assert.assertEquals(loggedReps, "10");
-}
+		// Verify the workout is saved correctly and associated with the user
+		String loggedExercise = driver.findElement(By.id("loggedExercise")).getText();
+		String loggedSets = driver.findElement(By.id("loggedSets")).getText();
+		String loggedReps = driver.findElement(By.id("loggedReps")).getText();
 
-@Test(priority = 5)
-    public void InputValidation() {
-        
-        // Navigate to the log workout page
-        driver.findElement(By.linkText("Log Workout")).click();
+		Assert.assertEquals(loggedExercise, "Bench Press");
+		Assert.assertEquals(loggedSets, "3");
+		Assert.assertEquals(loggedReps, "10");
+	}
 
-        // Enter invalid exercise, sets, and reps
-        driver.findElement(By.id("exercise")).sendKeys("");
-        driver.findElement(By.id("sets")).sendKeys("0");
-        driver.findElement(By.id("reps")).sendKeys("-5");
+	@Test(priority = 5)
+	public void InputValidation() {
 
-        // Submit the log workout form
-        driver.findElement(By.id("logWorkoutButton")).click();
+		// Navigate to the log workout page
+		driver.findElement(By.linkText("Log Workout")).click();
 
-        // Verify validation errors are displayed
-        String exerciseError = driver.findElement(By.id("exerciseError")).getText();
-        String setsError = driver.findElement(By.id("setsError")).getText();
-        String repsError = driver.findElement(By.id("repsError")).getText();
-        
-        Assert.assertEquals(exerciseError, "Please enter a valid exercise");
-        Assert.assertEquals(setsError, "Please enter a valid number of sets");
-        Assert.assertEquals(repsError, "Please enter a valid number of reps");
-    }
+		// Enter invalid exercise, sets, and reps
+		driver.findElement(By.id("exercise")).sendKeys("");
+		driver.findElement(By.id("sets")).sendKeys("0");
+		driver.findElement(By.id("reps")).sendKeys("-5");
 
-@Test(priority = 6)
-    public void TrackProgress() {
-       
-        // Navigate to the progress tracking page
-        driver.findElement(By.linkText("Track Progress")).click();
+		// Submit the log workout form
+		driver.findElement(By.id("logWorkoutButton")).click();
 
-        // Enter progress data
-        driver.findElement(By.id("weight")).sendKeys("150");
-        driver.findElement(By.id("bodyFat")).sendKeys("20");
+		// Verify validation errors are displayed
+		String exerciseError = driver.findElement(By.id("exerciseError")).getText();
+		String setsError = driver.findElement(By.id("setsError")).getText();
+		String repsError = driver.findElement(By.id("repsError")).getText();
 
-        // Submit the progress tracking form
-        driver.findElement(By.id("trackProgressButton")).click();
+		Assert.assertEquals(exerciseError, "Please enter a valid exercise");
+		Assert.assertEquals(setsError, "Please enter a valid number of sets");
+		Assert.assertEquals(repsError, "Please enter a valid number of reps");
+	}
 
-        // Verify that the progress is displayed accurately
-        String loggedWeight = driver.findElement(By.id("loggedWeight")).getText();
-        String loggedBodyFat = driver.findElement(By.id("loggedBodyFat")).getText();
-        
-        Assert.assertEquals(loggedWeight, "150 lbs");
-        Assert.assertEquals(loggedBodyFat, "20%");
-    }
+	@Test(priority = 6)
+	public void TrackProgress() {
 
-    @Test(priority = 7)
-    public void SetGoals() {
-       
-        // Navigate to the goals setting page
-        driver.findElement(By.linkText("Set Goals")).click();
+		// Navigate to the progress tracking page
+		driver.findElement(By.linkText("Track Progress")).click();
 
-        // Set fitness and nutrition goals
-        driver.findElement(By.id("fitnessGoal")).sendKeys("Lose 10 pounds");
-        driver.findElement(By.id("nutritionGoal")).sendKeys("Eat 5 servings of vegetables daily");
+		// Enter progress data
+		driver.findElement(By.id("weight")).sendKeys("150");
+		driver.findElement(By.id("bodyFat")).sendKeys("20");
 
-        // Submit the goals setting form
-        driver.findElement(By.id("setGoalsButton")).click();
+		// Submit the progress tracking form
+		driver.findElement(By.id("trackProgressButton")).click();
 
-        // Verify that the goals are displayed accurately
-        String fitnessGoal = driver.findElement(By.id("fitnessGoal")).getText();
-        String nutritionGoal = driver.findElement(By.id("nutritionGoal")).getText();
-        
-        Assert.assertEquals(fitnessGoal, "Lose 10 pounds");
-        Assert.assertEquals(nutritionGoal, "Eat 5 servings of vegetables daily");
-    }
+		// Verify that the progress is displayed accurately
+		String loggedWeight = driver.findElement(By.id("loggedWeight")).getText();
+		String loggedBodyFat = driver.findElement(By.id("loggedBodyFat")).getText();
 
-    @Test(priority = 8)
-    public void VerifyProgressAndGoals() {
-      
-        // Navigate to the progress and goals page
-        driver.findElement(By.linkText("Progress & Goals")).click();
+		Assert.assertEquals(loggedWeight, "150 lbs");
+		Assert.assertEquals(loggedBodyFat, "20%");
+	}
 
-        // Verify that the progress and goals are displayed accurately
-        String loggedWeight = driver.findElement(By.id("loggedWeight")).getText();
-        String loggedBodyFat = driver.findElement(By.id("loggedBodyFat")).getText();
-        String fitnessGoal = driver.findElement(By.id("fitnessGoal")).getText();
-        String nutritionGoal = driver.findElement(By.id("nutritionGoal")).getText();
-        
-        Assert.assertEquals(loggedWeight, "150 lbs");
-        Assert.assertEquals(loggedBodyFat, "20%");
-        Assert.assertEquals(fitnessGoal, "Lose 10 pounds");
-        Assert.assertEquals(nutritionGoal, "Eat 5 servings of vegetables daily");
-    }
+	@Test(priority = 7)
+	public void SetGoals() {
+
+		// Navigate to the goals setting page
+		driver.findElement(By.linkText("Set Goals")).click();
+
+		// Set fitness and nutrition goals
+		driver.findElement(By.id("fitnessGoal")).sendKeys("Lose 10 pounds");
+		driver.findElement(By.id("nutritionGoal")).sendKeys("Eat 5 servings of vegetables daily");
+
+		// Submit the goals setting form
+		driver.findElement(By.id("setGoalsButton")).click();
+
+		// Verify that the goals are displayed accurately
+		String fitnessGoal = driver.findElement(By.id("fitnessGoal")).getText();
+		String nutritionGoal = driver.findElement(By.id("nutritionGoal")).getText();
+
+		Assert.assertEquals(fitnessGoal, "Lose 10 pounds");
+		Assert.assertEquals(nutritionGoal, "Eat 5 servings of vegetables daily");
+	}
+
+	@Test(priority = 8)
+	public void VerifyProgressAndGoals() {
+
+		// Navigate to the progress and goals page
+		driver.findElement(By.linkText("Progress & Goals")).click();
+
+		// Verify that the progress and goals are displayed accurately
+		String loggedWeight = driver.findElement(By.id("loggedWeight")).getText();
+		String loggedBodyFat = driver.findElement(By.id("loggedBodyFat")).getText();
+		String fitnessGoal = driver.findElement(By.id("fitnessGoal")).getText();
+		String nutritionGoal = driver.findElement(By.id("nutritionGoal")).getText();
+
+		Assert.assertEquals(loggedWeight, "150 lbs");
+		Assert.assertEquals(loggedBodyFat, "20%");
+		Assert.assertEquals(fitnessGoal, "Lose 10 pounds");
+		Assert.assertEquals(nutritionGoal, "Eat 5 servings of vegetables daily");
+	}
 
 
- @Test(priority = 9)
-    public void ConnectWithFriends() {
+	@Test(priority = 9)
+	public void ConnectWithFriends() {
 
-        // Navigate to the friends page
-        driver.findElement(By.linkText("Friends")).click();
+		// Navigate to the friends page
+		driver.findElement(By.linkText("Friends")).click();
 
-        // Connect with a friend
-        driver.findElement(By.id("friendUsername")).sendKeys("friend1");
-        driver.findElement(By.id("sendFriendRequestButton")).click();
+		// Connect with a friend
+		driver.findElement(By.id("friendUsername")).sendKeys("friend1");
+		driver.findElement(By.id("sendFriendRequestButton")).click();
 
-        // Verify friend request sent successfully
-        String successMessage = driver.findElement(By.id("successMessage")).getText();
-        Assert.assertEquals(successMessage, "Friend request sent to friend1");
+		// Verify friend request sent successfully
+		String successMessage = driver.findElement(By.id("successMessage")).getText();
+		Assert.assertEquals(successMessage, "Friend request sent to friend1");
 
-       
-    }
 
-    @Test(priority = 10)
-    public void ShareProgressAndAchievements() {
-        
-        // Navigate to the progress sharing page
-        driver.findElement(By.linkText("Share Progress")).click();
+	}
 
-        // Share progress and achievements
-        driver.findElement(By.id("progress")).sendKeys("I've lost 5 pounds this month!");
-        driver.findElement(By.id("achievements")).sendKeys("Completed a marathon!");
+	@Test(priority = 10)
+	public void ShareProgressAndAchievements() {
 
-        // Submit the progress sharing form
-        driver.findElement(By.id("shareButton")).click();
+		// Navigate to the progress sharing page
+		driver.findElement(By.linkText("Share Progress")).click();
 
-        // Verify shared progress and achievements displayed to friends
-        driver.findElement(By.linkText("Friends")).click();
-        String sharedProgress = driver.findElement(By.id("sharedProgress")).getText();
-        String sharedAchievements = driver.findElement(By.id("sharedAchievements")).getText();
-        
-        Assert.assertEquals(sharedProgress, "user1 shared: I've lost 5 pounds this month!");
-        Assert.assertEquals(sharedAchievements, "user1 shared: Completed a marathon!");
-    }
-@Test(priority = 11)
-    public void AccessExerciseLibrary() {
-        
-        // Navigate to the exercise library
-        driver.findElement(By.linkText("Exercise Library")).click();
+		// Share progress and achievements
+		driver.findElement(By.id("progress")).sendKeys("I've lost 5 pounds this month!");
+		driver.findElement(By.id("achievements")).sendKeys("Completed a marathon!");
 
-        // Verify that the exercise library page is displayed
-        String pageTitle = driver.getTitle();
-        Assert.assertEquals(pageTitle, "Exercise Library");
+		// Submit the progress sharing form
+		driver.findElement(By.id("shareButton")).click();
 
-        // Verify that exercises are categorized and can be searched or filtered
-        
-        driver.findElement(By.id("searchBox")).sendKeys("Chest");
-        driver.findElement(By.id("searchButton")).click();
+		// Verify shared progress and achievements displayed to friends
+		driver.findElement(By.linkText("Friends")).click();
+		String sharedProgress = driver.findElement(By.id("sharedProgress")).getText();
+		String sharedAchievements = driver.findElement(By.id("sharedAchievements")).getText();
 
-        // Verify that exercises related to "Chest" are displayed
-        String categoryTitle = driver.findElement(By.id("categoryTitle")).getText();
-        Assert.assertEquals(categoryTitle, "Chest");
+		Assert.assertEquals(sharedProgress, "user1 shared: I've lost 5 pounds this month!");
+		Assert.assertEquals(sharedAchievements, "user1 shared: Completed a marathon!");
+	}
+	@Test(priority = 11)
+	public void AccessExerciseLibrary() {
 
-       
-    }
+		// Navigate to the exercise library
+		driver.findElement(By.linkText("Exercise Library")).click();
 
-    @Test(priority = 4)
-    public void testAccessWorkoutPlans() {
-       
-        // Navigate to the workout plans
-        driver.findElement(By.linkText("Workout Plans")).click();
+		// Verify that the exercise library page is displayed
+		String pageTitle = driver.getTitle();
+		Assert.assertEquals(pageTitle, "Exercise Library");
 
-        // Verify that the workout plans page is displayed
-        String pageTitle = driver.getTitle();
-        Assert.assertEquals(pageTitle, "Workout Plans");
+		// Verify that exercises are categorized and can be searched or filtered
 
-        // Verify that workout plans can be selected and viewed
-        driver.findElement(By.linkText("Beginner Full Body")).click();
-        String workoutPlanTitle = driver.findElement(By.id("workoutPlanTitle")).getText();
-        Assert.assertEquals(workoutPlanTitle, "Beginner Full Body");
+		driver.findElement(By.id("searchBox")).sendKeys("Chest");
+		driver.findElement(By.id("searchButton")).click();
 
-        // Verify that exercises within the workout plan are displayed
-        String exercise1 = driver.findElement(By.id("exercise1")).getText();
-        String exercise2 = driver.findElement(By.id("exercise2")).getText();
-        String exercise3 = driver.findElement(By.id("exercise3")).getText();
+		// Verify that exercises related to "Chest" are displayed
+		String categoryTitle = driver.findElement(By.id("categoryTitle")).getText();
+		Assert.assertEquals(categoryTitle, "Chest");
 
-        Assert.assertEquals(exercise1, "Squat");
-        Assert.assertEquals(exercise2, "Bench Press");
-        Assert.assertEquals(exercise3, "Deadlift");
 
-        // Go back to the workout plans
-        driver.navigate().back();
+	}
 
-        // Verify that all workout plans are displayed
-        String allWorkoutPlansTitle = driver.findElement(By.id("allWorkoutPlansTitle")).getText();
-        Assert.assertEquals(allWorkoutPlansTitle, "All Workout Plans");
-    }
-    @AfterClass
-    public void QuitBrowser() {
-        // Quit the WebDriver instance
-        driver.quit();
-    }
+	@Test(priority = 12)
+	public void testAccessWorkoutPlans() {
+
+		// Navigate to the workout plans
+		driver.findElement(By.linkText("Workout Plans")).click();
+
+		// Verify that the workout plans page is displayed
+		String pageTitle = driver.getTitle();
+		Assert.assertEquals(pageTitle, "Workout Plans");
+
+		// Verify that workout plans can be selected and viewed
+		driver.findElement(By.linkText("Beginner Full Body")).click();
+		String workoutPlanTitle = driver.findElement(By.id("workoutPlanTitle")).getText();
+		Assert.assertEquals(workoutPlanTitle, "Beginner Full Body");
+
+		// Verify that exercises within the workout plan are displayed
+		String exercise1 = driver.findElement(By.id("exercise1")).getText();
+		String exercise2 = driver.findElement(By.id("exercise2")).getText();
+		String exercise3 = driver.findElement(By.id("exercise3")).getText();
+
+		Assert.assertEquals(exercise1, "Squat");
+		Assert.assertEquals(exercise2, "Bench Press");
+		Assert.assertEquals(exercise3, "Deadlift");
+
+		// Go back to the workout plans
+		driver.navigate().back();
+
+		// Verify that all workout plans are displayed
+		String allWorkoutPlansTitle = driver.findElement(By.id("allWorkoutPlansTitle")).getText();
+		Assert.assertEquals(allWorkoutPlansTitle, "All Workout Plans");
+	}
+
+	@Test(priority = 13)
+	public void testIntegrationWithOtherFitnessAppsAndDevices() {
+
+		// Navigate to the integration settings page
+		driver.findElement(By.linkText("Integration Settings")).click();
+
+		// Connect with an external fitness app or device
+		driver.findElement(By.id("connectAppButton")).click();
+
+
+		// Verify successful integration
+		String successMessage = driver.findElement(By.id("successMessage")).getText();
+		Assert.assertEquals(successMessage, "Integration successful!");
+
+
+		// Disconnect from the external app/device
+		driver.findElement(By.id("disconnectAppButton")).click();
+
+		// Verify successful disconnection
+		String disconnectMessage = driver.findElement(By.id("disconnectMessage")).getText();
+		Assert.assertEquals(disconnectMessage, "Disconnected from the app/device successfully");
+	}
+
+	@AfterClass
+	public void QuitBrowser() {
+		// Quit the WebDriver instance
+		driver.quit();
+	}
 }
